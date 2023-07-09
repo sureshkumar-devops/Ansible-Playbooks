@@ -1,0 +1,20 @@
+---
+- name: Create User
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: creating user vali
+    user:
+      name: vali
+
+  - name: creating directory for vali
+    file:
+      path: /opt/vali_temp_dir
+      state: directory
+      owner: vali
+      group: vali
+      mode: 0755
+      
+
+

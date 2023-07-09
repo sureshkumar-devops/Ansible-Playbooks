@@ -1,0 +1,53 @@
+---
+- name: Playbook to Install Apache Tomcat
+  hosts: all
+  become: true
+  gather_facts: yes
+  vars_files:
+     - tomcat_vars.yml  
+
+  tasks:
+  - name: Install Java 11 Version
+    yum:
+      name: java-11
+      state: installed
+
+  - name: Downloading Tomcat Package
+    get_url:
+     url: "{{ tomcat_url }}"
+     dest: /opt
+     mode: 0755
+
+  - name: Extract Package
+    unarchive:
+      src: /opt/{{tomcat_package}}.tar.gz
+      dest: /opt/
+      remote_src: yes  
+
+  - name: Change permissions on apache-tomcat-file
+    file:
+      path: opt/{{ tomcat_package }}
+      mode: 0755
+      recurse: yes
+
+  - name: Creating Symbolic Link File to TomcatUp
+    file:
+     src: /opt/{{ tomcat_package }}/bin/startup.sh
+     dest: /usr/local/bin/tomcatup
+     state: link
+
+  - name: Creating Symbolic Link File to TomcatDown
+    file:
+     src: /opt/{{ tomcat_package }}/bin/shutdown.sh
+     dest: /usr/local/bin/tomcatdown
+     state: link
+
+  - name: Start the Tomcat Service
+    command: nohup ./startup.sh
+    args: 
+      chdir: /opt/{{ tomcat_package }}/bin
+      
+
+     
+
+
