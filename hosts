@@ -1,0 +1,8 @@
+[webservers]
+RHEL-SERVER  ansible_host=172.31.34.185 
+TOMCAT-SERVER  ansible_host=172.31.42.144
+
+[appservers]
+UBUNTU-SERVER ansible_host=172.31.37.81
+
+localhost

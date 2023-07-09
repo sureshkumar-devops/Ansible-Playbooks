@@ -1,0 +1,11 @@
+---
+- name: Create User
+  hosts: all
+  become: true
+  gather_facts: no
+  tasks:
+  - name: create user suresh
+    user:
+      name: suresh
+
+

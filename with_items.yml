@@ -1,0 +1,15 @@
+---
+- name: Install Multiple Packages
+  hosts: all
+  become: true
+  gather_facts: no
+
+  tasks:
+  - name: install packages
+    yum:
+     name: "['git', 'tree', 'wget', 'make', 'telnet', 'gzip']"
+     state: installed    
+
+
+
+

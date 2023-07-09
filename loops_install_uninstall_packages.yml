@@ -1,0 +1,19 @@
+---
+- name: Loops install and uninstall packages
+  hosts: all
+  become: true
+  gather_facts: no  
+
+  tasks:
+  - name: installing
+    yum: 
+      name:  "{{ item.pkg }}"
+      state: "{{ item.setup }}"      
+    loops:
+      - { pkg: 'git',     setup: 'removed' }
+      - { pkg: 'tree',    setup: 'removed' }
+      - { pkg: 'make',    setup: 'removed' }
+      - { pkg: 'wget',    setup: 'removed' }
+      - { pkg: 'telnet',  setup: 'removed' }
+      - { pkg: 'gzip',    setup: 'removed' }
+         

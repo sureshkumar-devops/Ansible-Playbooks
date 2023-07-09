@@ -1,0 +1,20 @@
+--- 
+- name: Installing packages
+  hosts: all
+  become: true
+  gather_facts: false
+  tasks:
+  - name: installing httpd
+    yum:
+      name: httpd
+      state: present
+
+  - name: start httpd service
+    service:
+      name: httpd
+      state: started
+   
+  - name: copying files
+    copy: 
+     src: /home/ansadmin/playbooks/index.html
+     dest: /var/www/html/    
